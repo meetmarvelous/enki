@@ -1,0 +1,114 @@
+/* Profile */
+.enki-profile-banner { position: relative; height: 280px; margin-bottom: 110px; overflow: visible; }
+.enki-profile-banner-art { position: absolute; inset: 0; background: radial-gradient(ellipse at 22% 30%, color-mix(in oklch, var(--ember) 22%, transparent), transparent 55%), radial-gradient(ellipse at 78% 70%, color-mix(in oklch, var(--ink) 18%, transparent), transparent 60%), linear-gradient(135deg, var(--paper-3) 0%, var(--paper-2) 100%); border-bottom: 1px solid var(--rule); }
+.enki-profile-avatar-overlap { position: absolute !important; left: 40px; bottom: -90px; z-index: 2; border: 6px solid var(--paper); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
+.enki-profile-hero { padding: 0 40px 40px 240px; display: block; border-bottom: 1px solid var(--rule); }
+.enki-profile-avatar { width: 180px; height: 180px; border-radius: 50%; background: var(--ink); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-size: 64px; font-weight: 300; }
+.enki-profile-name { font-family: var(--serif); font-size: 88px; line-height: 0.95; font-weight: 300; letter-spacing: -0.03em; }
+.enki-profile-handle { font-family: var(--mono); font-size: 13px; color: var(--ink-3); margin-bottom: 14px; }
+.enki-profile-bio { font-family: var(--serif); font-size: 19px; color: var(--ink-2); font-style: italic; max-width: 540px; margin-top: 14px; }
+.enki-profile-stats { display: flex; gap: 40px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule-2); }
+.enki-profile-stat .num { font-family: var(--serif); font-size: 32px; line-height: 1; }
+.enki-profile-stat .label { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+
+/* NFT Filter */
+.enki-profile-nft-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid var(--rule); background: var(--paper); font-size: 11px; color: var(--ink-2); cursor: pointer; transition: all 0.15s; font-family: var(--mono); }
+.enki-profile-nft-btn:hover { border-color: var(--ink-3); }
+.enki-profile-nft-btn.active { border-color: var(--ember); color: var(--ember); }
+.enki-profile-nft-icon { font-size: 14px; }
+.enki-profile-nft-chev { display: inline-flex; transition: transform 0.15s; }
+.enki-profile-nft-chev.up { transform: rotate(180deg); }
+.enki-profile-nft-menu { position: absolute; right: 0; top: calc(100% + 8px); width: 340px; background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 12px 40px rgba(0,0,0,0.10); z-index: 30; }
+.enki-profile-nft-menu-head { padding: 14px 16px; border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; }
+.enki-profile-nft-menu-eyebrow { font-size: 10px; color: var(--ink-3); letter-spacing: 0.1em; }
+.enki-profile-nft-menu-title { font-size: 18px; font-weight: 300; }
+.enki-profile-nft-menu-clear { border: none; background: none; color: var(--ember); cursor: pointer; font-size: 11px; text-decoration: underline; }
+.enki-profile-nft-menu-hint { padding: 10px 16px; font-size: 10px; color: var(--ink-3); border-bottom: 1px solid var(--rule); }
+.enki-profile-nft-networks { display: flex; gap: 2px; padding: 10px 16px; border-bottom: 1px solid var(--rule); }
+.enki-profile-nft-network { border: 1px solid var(--rule); background: transparent; padding: 5px 10px; font-size: 10px; cursor: pointer; color: var(--ink-3); display: inline-flex; align-items: center; gap: 4px; }
+.enki-profile-nft-network:hover { border-color: var(--ink-3); }
+.enki-profile-nft-network.active { border-color: var(--ink); color: var(--ink); background: var(--paper-2); }
+.enki-profile-nft-network-count { font-size: 9px; opacity: 0.6; }
+.enki-profile-nft-list { max-height: 200px; overflow-y: auto; }
+.enki-profile-nft-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; width: 100%; border: none; background: transparent; cursor: pointer; text-align: left; font-family: inherit; }
+.enki-profile-nft-item:hover { background: var(--paper-2); }
+.enki-profile-nft-item.selected { background: var(--ember-soft); }
+.enki-profile-nft-thumb { width: 32px; height: 32px; background: var(--paper-3); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.enki-profile-nft-meta { flex: 1; display: flex; flex-direction: column; }
+.enki-profile-nft-collection { font-size: 13px; }
+.enki-profile-nft-token { font-size: 10px; color: var(--ink-3); }
+.enki-profile-nft-check { width: 20px; height: 20px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--ink-3); }
+.enki-profile-nft-check.on { background: var(--ember); border-color: var(--ember); color: white; }
+.enki-profile-nft-active { padding: 10px 40px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.enki-profile-nft-active-label { font-size: 10px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; }
+.enki-profile-nft-active-chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border: 1px solid var(--ember); background: var(--ember-soft); color: var(--ember); font-size: 10px; }
+.enki-profile-nft-active-chip button { border: none; background: none; color: var(--ember); cursor: pointer; padding: 0; margin-left: 4px; }
+.enki-profile-nft-active-sym { font-size: 14px; }
+.enki-profile-nft-active-count { margin-left: auto; font-size: 10px; color: var(--ink-3); }
+.enki-profile-nft-empty { padding: 60px 40px; text-align: center; }
+.enki-profile-nft-empty .serif { font-size: 22px; margin-bottom: 8px; }
+.enki-profile-nft-empty .mono { font-size: 12px; color: var(--ink-3); }
+.enki-profile-card-nft-badge { position: absolute; bottom: 8px; left: 8px; display: flex; gap: 4px; font-size: 14px; background: rgba(0,0,0,0.55); padding: 2px 6px; border-radius: 2px; color: white; backdrop-filter: blur(4px); }
+
+/* Masonry responsive */
+.enki-masonry { column-count: var(--cols, 4); }
+@media (max-width: 1100px) { .enki-masonry { column-count: 3 !important; } }
+@media (max-width: 760px) { .enki-masonry { column-count: 2 !important; } }
+
+/* Release workspace */
+.enki-release-bar { padding: 14px 32px; border-bottom: 1px solid var(--rule); display: flex; align-items: stretch; gap: 18px; background: var(--paper); position: sticky; top: 0; z-index: 5; }
+.enki-release-titlebox { flex: 1; display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--rule); background: var(--paper); padding: 6px 14px 8px; border-radius: 2px; transition: border-color 0.12s; }
+.enki-release-titlebox:focus-within { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.enki-release-titlebox-label { font-size: 9px; color: var(--ink-3); letter-spacing: 0.16em; text-transform: uppercase; }
+.enki-release-titlebox-input { font-size: 22px; font-weight: 300; letter-spacing: -0.02em; border: none; outline: none; background: transparent; color: var(--ink); padding: 0; width: 100%; }
+.enki-release-titlebox-input::placeholder { color: var(--ink-3); font-style: italic; }
+.enki-release-actions { display: flex; align-items: stretch; gap: 8px; }
+.enki-release-workspace { display: grid; grid-template-columns: 320px minmax(360px, 1fr) 360px 440px; gap: 1px; background: var(--rule); min-height: calc(100vh - 120px); }
+.enki-release-pane { background: var(--paper); padding: 22px 22px 32px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.enki-release-pane-settings { background: var(--paper-2); }
+.enki-release-pane-verify { background: var(--paper-2); }
+.enki-release-pane-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.enki-release-pane-num { font-size: 10px; color: var(--ember); letter-spacing: 0.18em; }
+.enki-release-pane-title { font-family: var(--serif); font-size: 22px; font-weight: 300; letter-spacing: -0.01em; line-height: 1; }
+.enki-release-pane-meta { font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; margin-left: auto; }
+
+/* Quick create dock */
+.enki-qc { position: sticky; bottom: 0; z-index: 40; background: var(--paper); border-top: 1px solid var(--rule); margin-top: auto; }
+.enki-qc-bar { width: 100%; display: flex; align-items: center; gap: 12px; padding: 9px 40px; background: transparent; border: none; cursor: pointer; text-align: left; color: var(--ink); }
+.enki-qc-bar:hover { background: var(--paper-2); }
+.enki-qc-bar-bolt { width: 22px; height: 22px; border-radius: 50%; background: var(--ember-soft); color: var(--ember); display: flex; align-items: center; justify-content: center; }
+.enki-qc-bar-label { font-size: 14px; font-weight: 400; letter-spacing: -0.005em; }
+.enki-qc-bar-hint { font-size: 10px; color: var(--ink-3); letter-spacing: 0.04em; }
+.enki-qc-bar-chev { margin-left: auto; color: var(--ink-3); transition: transform 0.2s; }
+.enki-qc-bar-chev.up { transform: rotate(180deg); }
+
+/* Search sidebar */
+.enki-filter-sidebar { padding: 32px 28px; border-right: 1px solid var(--rule); background: var(--paper); }
+.enki-filter-group { margin-bottom: 28px; }
+.enki-filter-group-title { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); font-family: var(--mono); margin-bottom: 12px; }
+.enki-filter-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 6px 0; cursor: pointer; color: var(--ink-2); }
+.enki-filter-row:hover { color: var(--ink); }
+.enki-filter-count { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+.enki-filter-row input { accent-color: var(--ember); margin-right: 8px; }
+
+/* Video icon overlay */
+.enki-video-icon { position: absolute; bottom: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.55); color: white; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+
+/* x402 link */
+.enki-x402-link { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--paper-2); border: 1px solid var(--rule); font-size: 12px; }
+
+/* Share popover */
+.enki-share-pop { position: absolute; bottom: calc(100% + 8px); right: 0; width: 380px; background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 12px 40px rgba(0,0,0,0.12); z-index: 30; }
+.enki-share-pop-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--rule); }
+.enki-share-row { padding: 14px 16px; border-bottom: 1px solid var(--rule); }
+.enki-share-row-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.enki-share-tag { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 6px; background: var(--ink); color: var(--paper); }
+.enki-share-tag-muted { background: var(--paper-2); color: var(--ink-3); }
+.enki-share-row-meta { font-size: 10px; color: var(--ink-3); }
+.enki-share-url { display: flex; align-items: center; gap: 8px; background: var(--paper-2); border: 1px solid var(--rule); padding: 8px 10px; }
+.enki-share-url-text { flex: 1; font-size: 11px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.enki-share-copy-btn { border: 1px solid var(--rule); background: var(--paper); padding: 4px 8px; font-size: 11px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; color: var(--ink-2); }
+.enki-share-copy-btn:hover { border-color: var(--ink-3); }
+.enki-share-help { font-size: 11px; color: var(--ink-3); line-height: 1.5; margin-top: 8px; }
+.enki-share-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; font-size: 10px; color: var(--ink-3); }
+.enki-share-foot a { color: var(--ember); text-decoration: none; }
