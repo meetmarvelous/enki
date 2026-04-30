@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Filters from "@/components/Filters";
 import Card from "@/components/Card";
 import DetailPanel from "@/components/DetailPanel";
+import QuickCreate from "@/components/QuickCreate";
 import { PROMPTS } from "@/lib/data";
 import type { Prompt } from "@/lib/data";
 
@@ -12,6 +13,7 @@ export default function HomePage() {
   const [favs, setFavs] = useState<Record<string, boolean>>({ p_2: true, p_5: true });
   const [open, setOpen] = useState<Prompt | null>(null);
   const [activeNet, setActiveNet] = useState("Base");
+  const [myGen, setMyGen] = useState<any[]>([]);
 
   const filtered = useMemo(() => {
     let list = PROMPTS;
@@ -27,8 +29,20 @@ export default function HomePage() {
     setFavs(s => ({ ...s, [id]: !s[id] }));
   };
 
+  const addToGallery = (g: any) => {
+    setMyGen(s => [{
+      id: 'mygen_' + Date.now() + Math.random(),
+      title: 'Your generation',
+      art: g.art, isVideo: false,
+      artist: { name: 'You', handle: 'sam.mehta', avatar: 'SM' },
+      tags: ['mine'], price: 0, downloads: 1,
+      variables: [], promptTemplate: '', versions: [g.art, g.art, g.art, g.art],
+      model: 'Nano Banana Pro', publishedAt: 'just now',
+    }, ...s]);
+  };
+
   return (
-    <>
+    <div className="enki" style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
       <Header active="home" />
       <div className="enki-page-title" style={{ paddingBottom: 18 }}>
         <div className="enki-page-eyebrow">
@@ -40,6 +54,9 @@ export default function HomePage() {
       </div>
       <Filters active={tags} toggle={toggleTag} />
       <div className="enki-masonry" style={{ columnCount: 4 }}>
+        {myGen.map(p => (
+          <Card key={p.id} p={p} onOpen={setOpen} faved={!!favs[p.id]} toggleFav={toggleFav} />
+        ))}
         {filtered.map(p => (
           <Card
             key={p.id}
@@ -50,6 +67,7 @@ export default function HomePage() {
           />
         ))}
       </div>
+      <QuickCreate onAddToGallery={addToGallery} />
       {open && (
         <DetailPanel
           p={open}
@@ -59,6 +77,7 @@ export default function HomePage() {
           activeNetwork={activeNet}
         />
       )}
-    </>
+    </div>
   );
 }
+

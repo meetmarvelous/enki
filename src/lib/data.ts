@@ -214,6 +214,13 @@ export const NETWORKS = [
   { name: 'Arbitrum', token: 'USDC', balance: '21.04', color: '#28a0f0' },
 ];
 
+export const QC_MODELS = [
+  { id: 'nano-banana-pro', name: 'Nano Banana Pro', cost: 0.04, kind: 'image' },
+  { id: 'gpt-image-2', name: 'GPT-Image-2', cost: 0.06, kind: 'image' },
+];
+export const QC_RATIOS = ['1:1', '4:5', '3:2', '16:9', '9:16', '21:9'];
+export const QC_RESOLUTIONS = ['1K', '2K', '4K'];
+
 export function parseTokens(text: string): string[] {
   const re = /\[(\w+)\]/g;
   const set: string[] = [];
