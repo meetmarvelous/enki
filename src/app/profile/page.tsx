@@ -2,7 +2,9 @@
 import { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
+import DetailPanel from "@/components/DetailPanel";
 import { ARTISTS, PROMPTS, NETWORKS } from "@/lib/data";
+import type { Prompt } from "@/lib/data";
 import { ChevronDown } from "lucide-react";
 
 const PROFILE_NETWORKS = ['Base', 'Optimism', 'Ethereum', 'Solana'];
@@ -35,6 +37,7 @@ export default function ProfilePage() {
   const [nftFilterOpen, setNftFilterOpen] = useState(false);
   const [nftNetwork, setNftNetwork] = useState('Base');
   const [selectedNfts, setSelectedNfts] = useState<string[]>([]);
+  const [open, setOpen] = useState<Prompt | null>(null);
 
   const currentNfts = PROFILE_NFTS_BY_NET[nftNetwork] || [];
   const allWalletNfts = useMemo(() => Object.values(PROFILE_NFTS_BY_NET).flat(), []);
@@ -167,7 +170,7 @@ export default function ProfilePage() {
         <div className="enki-masonry" style={{ paddingTop: 24, columnCount: 4 }}>
           {list.map(p => (
             <div key={p.id} style={{ position: 'relative' }}>
-              <Card p={p} faved={false} toggleFav={() => {}} />
+              <Card p={p} onOpen={setOpen} faved={false} toggleFav={() => {}} />
               {(promptNfts[p.id] || []).length > 0 && (
                 <div className="enki-profile-card-nft-badge mono">
                   {(promptNfts[p.id] || []).map(nid => {
@@ -180,6 +183,15 @@ export default function ProfilePage() {
           ))}
         </div>
       )}
+      {open && (
+        <DetailPanel
+          p={open}
+          onClose={() => setOpen(null)}
+          faved={false}
+          toggleFav={() => {}}
+        />
+      )}
     </>
   );
 }
+

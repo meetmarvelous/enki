@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Search, Plus, Bell, ChevronDown, Check } from "lucide-react";
 import { NETWORKS } from "@/lib/data";
 
 interface HeaderProps {
   active?: string;
-  onNav?: (page: string) => void;
 }
 
 function ProfileDropdown({ networks, activeNet, setActiveNet, onClose }: {
@@ -37,8 +38,8 @@ function ProfileDropdown({ networks, activeNet, setActiveNet, onClose }: {
         ))}
       </div>
       <div className="enki-dropdown-section">
-        <div className="enki-dropdown-link">My profile</div>
-        <div className="enki-dropdown-link">Favorites</div>
+        <Link href="/profile" className="enki-dropdown-link" onClick={onClose}>My profile</Link>
+        <Link href="/favorites" className="enki-dropdown-link" onClick={onClose}>Favorites</Link>
         <div className="enki-dropdown-link">Released prompts</div>
         <div className="enki-dropdown-link">Earnings</div>
         <div className="enki-dropdown-link">Settings</div>
@@ -48,29 +49,42 @@ function ProfileDropdown({ networks, activeNet, setActiveNet, onClose }: {
   );
 }
 
-export default function Header({ active = "home", onNav }: HeaderProps) {
+export default function Header({ active = "home" }: HeaderProps) {
+  const router = useRouter();
   const [profileOpen, setProfileOpen] = useState(false);
   const [activeNet, setActiveNet] = useState("Base");
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && search.trim()) {
+      router.push(`/search?q=${encodeURIComponent(search.trim())}`);
+    }
+  };
 
   return (
     <header className="enki-header">
-      <div className="enki-logo serif">Enki Art</div>
+      <Link href="/" className="enki-logo serif">Enki Art</Link>
       <nav className="enki-nav">
-        <a className={active === "home" ? "active" : ""} onClick={() => onNav?.("home")}>Discover</a>
-        <a className={active === "images" ? "active" : ""} onClick={() => onNav?.("images")}>Images</a>
-        <a className={active === "videos" ? "active" : ""} onClick={() => onNav?.("videos")}>Videos</a>
-        <a className={active === "favorites" ? "active" : ""} onClick={() => onNav?.("favorites")}>Favorites</a>
+        <Link href="/" className={active === "home" ? "active" : ""}>Discover</Link>
+        <Link href="/images" className={active === "images" ? "active" : ""}>Images</Link>
+        <Link href="/videos" className={active === "videos" ? "active" : ""}>Videos</Link>
+        <Link href="/favorites" className={active === "favorites" ? "active" : ""}>Favorites</Link>
       </nav>
       <div className="enki-search">
         <span className="enki-search-icon"><Search size={16} /></span>
-        <input placeholder="Search prompts, tags, artists…" />
+        <input 
+          placeholder="Search prompts, tags, artists…" 
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          onKeyDown={handleSearch}
+        />
         <span className="mono" style={{ fontSize: 10, color: 'var(--ink-3)', border: '1px solid var(--rule)', padding: '2px 5px', borderRadius: 3 }}>⌘ K</span>
       </div>
       <div className="enki-header-actions">
-        <button className={`enki-release-cta${active === 'release' ? ' active' : ''}`} onClick={() => onNav?.("release")}>
+        <Link href="/release" className={`enki-release-cta${active === 'release' ? ' active' : ''}`}>
           <Plus size={14} strokeWidth={1.75} />
           <span>Release prompt</span>
-        </button>
+        </Link>
         <button className="enki-icon-btn" title="Notifications"><Bell size={14} /></button>
         <div style={{ position: 'relative' }}>
           <div className="enki-avatar" onClick={() => setProfileOpen(!profileOpen)}>SM</div>
@@ -87,3 +101,4 @@ export default function Header({ active = "home", onNav }: HeaderProps) {
     </header>
   );
 }
+

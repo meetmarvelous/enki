@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo, useRef } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import { NETWORKS, makeArtwork, parseTokens } from "@/lib/data";
 import { Zap, Copy } from "lucide-react";
@@ -60,9 +61,11 @@ export default function ReleasePage() {
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 14px 0 0', borderRight: '1px solid var(--rule)', fontSize: 11, color: 'var(--ink-2)', gap: 2 }}>
             <span><span style={{ width: 6, height: 6, borderRadius: '50%', background: canPublish ? 'var(--ember)' : 'var(--ink-3)', display: 'inline-block', marginRight: 6 }} /><span className="mono">{verifyCount}/{isFree ? '1+' : '4'} verified</span></span>
           </div>
+          <Link href="/" className="enki-btn enki-btn-secondary" style={{ fontSize: 12, padding: '9px 16px', display: 'flex', alignItems: 'center' }}>Cancel</Link>
           <button className="enki-btn enki-btn-secondary" style={{ fontSize: 12, padding: '9px 16px' }} onClick={() => setVersions([true, true, true, true])}>
             <Zap size={14} /> Generate empty slots
           </button>
+
           <button className={`enki-btn${wallet ? ' connected' : ''}`} style={{ fontSize: 11, padding: '9px 14px', fontFamily: 'var(--mono)', background: wallet ? 'var(--ember-soft)' : 'var(--paper)', color: wallet ? 'var(--ember)' : 'var(--ink-2)', borderColor: wallet ? 'var(--ember)' : 'var(--rule)' }} onClick={() => setWallet(w => w ? null : '0x4Cf8…9aB2')}>
             {wallet ? <><span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--ember)', display: 'inline-block' }} /> {wallet}</> : 'Connect wallet'}
           </button>

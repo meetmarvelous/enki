@@ -2,12 +2,19 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
+import DetailPanel from "@/components/DetailPanel";
 import { PROMPTS, MODELS } from "@/lib/data";
+import type { Prompt } from "@/lib/data";
 
 export default function SearchPage() {
   const [favs, setFavs] = useState<Record<string, boolean>>({});
+  const [open, setOpen] = useState<Prompt | null>(null);
   const active = ['infographic', 'editorial'];
   const list = PROMPTS.filter(p => p.tags.some(t => active.includes(t)));
+
+  const toggleFav = (id: string) => {
+    setFavs(s => ({ ...s, [id]: !s[id] }));
+  };
 
   return (
     <>
@@ -66,11 +73,20 @@ export default function SearchPage() {
           </div>
           <div className="enki-masonry" style={{ paddingTop: 24, columnCount: 3 }}>
             {list.map(p => (
-              <Card key={p.id} p={p} faved={!!favs[p.id]} toggleFav={(id) => setFavs(s => ({ ...s, [id]: !s[id] }))} />
+              <Card key={p.id} p={p} onOpen={setOpen} faved={!!favs[p.id]} toggleFav={toggleFav} />
             ))}
           </div>
         </div>
       </div>
+      {open && (
+        <DetailPanel
+          p={open}
+          onClose={() => setOpen(null)}
+          faved={!!favs[open.id]}
+          toggleFav={toggleFav}
+        />
+      )}
     </>
   );
 }
+
