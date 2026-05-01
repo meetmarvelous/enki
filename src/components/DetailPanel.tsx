@@ -9,10 +9,10 @@ interface DetailPanelProps {
   onClose: () => void;
   faved: boolean;
   toggleFav: (id: string) => void;
-  activeNetwork: string;
+  activeNetwork?: string;
 }
 
-export default function DetailPanel({ p, onClose, faved, toggleFav, activeNetwork }: DetailPanelProps) {
+export default function DetailPanel({ p, onClose, faved, toggleFav, activeNetwork = "Base" }: DetailPanelProps) {
   const [vars, setVars] = useState(() => Object.fromEntries(p.variables.map(v => [v.name, v.value])));
   const [activeVar, setActiveVar] = useState(p.variables[0]?.name);
   const [heroIdx, setHeroIdx] = useState(0);
