@@ -19,7 +19,7 @@ export default function SearchPage() {
   return (
     <>
       <Header active="search" />
-      <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr' }}>
+      <div className="enki-search-layout">
         <div className="enki-filter-sidebar">
           <div style={{ marginBottom: 32 }}>
             <div className="mono" style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 6 }}>Searching for</div>
@@ -59,7 +59,7 @@ export default function SearchPage() {
           </div>
         </div>
         <div>
-          <div style={{ padding: '24px 40px 8px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', borderBottom: '1px solid var(--rule)' }}>
+          <div className="enki-search-results-head">
             <div>
               <div className="enki-page-eyebrow">Results · {list.length} prompts</div>
               <h2 className="serif" style={{ fontSize: 36, fontStyle: 'italic', fontWeight: 300, letterSpacing: '-0.02em', lineHeight: 1 }}>Filtered.</h2>
@@ -89,4 +89,3 @@ export default function SearchPage() {
     </>
   );
 }
-

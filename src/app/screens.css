@@ -161,3 +161,202 @@
 .enki-share-help { font-size: 11px; color: var(--ink-3); line-height: 1.5; margin-top: 8px; }
 .enki-share-foot { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; font-size: 10px; color: var(--ink-3); }
 .enki-share-foot a { color: var(--ember); text-decoration: none; }
+
+@media (max-width: 1180px) {
+  .enki-release-bar {
+    top: 0;
+    flex-wrap: wrap;
+  }
+  .enki-release-actions {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+}
+
+@media (max-width: 760px) {
+  .enki-qc {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 62px;
+    z-index: 70;
+    border-top: 1px solid var(--rule);
+    box-shadow: 0 -14px 40px rgba(0,0,0,0.08);
+  }
+  .enki-qc-bar {
+    padding: 11px 16px;
+  }
+  .enki-qc-bar-hint {
+    display: none;
+  }
+  .enki-qc-panel {
+    max-height: min(72dvh, 620px);
+    padding: 16px;
+    overflow: auto;
+  }
+  .enki-qc-grid {
+    display: block;
+  }
+  .enki-qc-col + .enki-qc-col {
+    margin-top: 18px;
+  }
+  .enki-qc-settings {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .enki-qc-setting {
+    display: block;
+  }
+  .enki-qc-setting-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .enki-qc-select {
+    width: 100%;
+  }
+  .enki-qc-var {
+    grid-template-columns: 82px 1fr;
+    gap: 10px;
+    min-height: 42px;
+  }
+  .enki-qc-cost-line {
+    align-items: flex-start;
+    gap: 8px;
+    flex-direction: column;
+  }
+  .enki-qc-results {
+    left: 0;
+    right: 0;
+    bottom: 62px;
+    max-height: 78dvh;
+    border-left: 0;
+    border-right: 0;
+    overflow: auto;
+  }
+  .enki-qc-results-head {
+    padding: 14px 16px;
+  }
+  .enki-qc-results-title {
+    font-size: 22px;
+  }
+  .enki-qc-results-grid {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .enki-qc-result {
+    flex-basis: 210px;
+  }
+  .enki-qc-results-prompt {
+    padding: 12px 16px;
+    display: block;
+  }
+
+  .enki-profile-banner {
+    height: 150px;
+    margin-bottom: 70px;
+  }
+  .enki-profile-avatar {
+    width: 116px;
+    height: 116px;
+    font-size: 42px;
+  }
+  .enki-profile-avatar-overlap {
+    left: 16px;
+    bottom: -58px;
+    border-width: 4px;
+  }
+  .enki-profile-hero {
+    padding: 0 16px 24px;
+  }
+  .enki-profile-handle,
+  .enki-profile-name,
+  .enki-profile-bio {
+    margin-left: 132px;
+  }
+  .enki-profile-name {
+    font-size: clamp(38px, 12vw, 52px);
+  }
+  .enki-profile-bio {
+    font-size: 15px;
+    margin-top: 8px;
+  }
+  .enki-profile-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .enki-profile-stats > div:last-child {
+    grid-column: 1 / -1;
+    margin-left: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+  }
+  .enki-profile-nft-menu {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: auto;
+    bottom: 74px;
+    width: auto;
+    max-height: 70dvh;
+    overflow: auto;
+  }
+  .enki-profile-nft-active {
+    padding: 10px 16px;
+  }
+  .enki-profile-nft-active-count {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .enki-release-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: block;
+    padding: 12px 14px;
+  }
+  .enki-release-titlebox {
+    margin-bottom: 10px;
+  }
+  .enki-release-titlebox-input {
+    font-size: 18px;
+  }
+  .enki-release-actions {
+    display: flex;
+    width: auto;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .enki-release-actions .enki-btn {
+    white-space: nowrap;
+  }
+  .enki-release-workspace {
+    display: block;
+    min-height: 0;
+    background: var(--paper);
+    padding-bottom: 86px;
+  }
+  .enki-release-pane {
+    margin: 12px 12px 0;
+    padding: 16px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .enki-release-pane-settings,
+  .enki-release-pane-verify {
+    background: var(--paper-2);
+  }
+  .enki-release-pane-head {
+    position: sticky;
+    top: 0;
+    background: inherit;
+    z-index: 2;
+  }
+  .enki-release-pane-title {
+    font-size: 21px;
+  }
+}

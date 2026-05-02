@@ -67,7 +67,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Header active="" />
+      <Header active="profile" />
       <div className="enki-profile-banner">
         <div className="enki-profile-banner-art" />
         <div className="enki-profile-avatar enki-profile-avatar-overlap">{a.avatar}</div>

@@ -1,13 +1,17 @@
 "use client";
+import { useState } from "react";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
+import DetailPanel from "@/components/DetailPanel";
 import { PROMPTS } from "@/lib/data";
+import type { Prompt } from "@/lib/data";
 
 interface AccountPageProps {
   section: "released" | "earnings" | "settings";
 }
 
 export default function AccountPage({ section }: AccountPageProps) {
+  const [open, setOpen] = useState<Prompt | null>(null);
   const released = PROMPTS.filter((_, i) => i % 3 === 0).slice(0, 8);
   const revenue = released.reduce((sum, p) => sum + p.price * Math.round(p.downloads / 120), 0);
 
@@ -30,7 +34,7 @@ export default function AccountPage({ section }: AccountPageProps) {
 
       {section === "released" && (
         <div className="enki-masonry" style={{ columnCount: 4 }}>
-          {released.map(p => <Card key={p.id} p={p} faved={false} toggleFav={() => {}} />)}
+          {released.map(p => <Card key={p.id} p={p} onOpen={setOpen} faved={false} toggleFav={() => {}} />)}
         </div>
       )}
 
@@ -62,6 +66,14 @@ export default function AccountPage({ section }: AccountPageProps) {
             </section>
           ))}
         </main>
+      )}
+      {open && (
+        <DetailPanel
+          p={open}
+          onClose={() => setOpen(null)}
+          faved={false}
+          toggleFav={() => {}}
+        />
       )}
     </>
   );
