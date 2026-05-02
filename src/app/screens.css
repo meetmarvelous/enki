@@ -129,6 +129,10 @@
 .enki-qc-result-actions { display: flex; gap: 6px; }
 .enki-qc-results-prompt { padding: 12px 24px; background: var(--paper-2); border-top: 1px solid var(--rule); font-size: 11px; color: var(--ink-3); line-height: 1.4; display: flex; gap: 12px; }
 .enki-qc-results-prompt-label { text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); flex-shrink: 0; }
+.enki-qc-sheet-handle,
+.enki-qc-sheet-head,
+.enki-qc-var-add,
+.enki-qc-var-types { display: none; }
 
 
 /* Search sidebar */
@@ -177,23 +181,123 @@
 @media (max-width: 760px) {
   .enki-qc {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 62px;
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
     z-index: 70;
-    border-top: 1px solid var(--rule);
-    box-shadow: 0 -14px 40px rgba(0,0,0,0.08);
+    border-top: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .enki-qc.open {
+    inset: 0;
+    z-index: 140;
+    background: rgba(24,20,18,0.45);
+    backdrop-filter: blur(2px);
+  }
+  .enki-qc.open::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(250,248,244,0.58), rgba(250,248,244,0.58)),
+      radial-gradient(circle at 26% 12%, rgba(24,20,18,0.22), transparent 14%),
+      radial-gradient(circle at 74% 10%, rgba(24,20,18,0.2), transparent 16%);
   }
   .enki-qc-bar {
-    padding: 11px 16px;
+    width: 100%;
+    padding: 16px 22px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 0 14px 28px -10px rgba(24,20,18,0.45), 0 4px 12px -4px rgba(24,20,18,0.25);
+    gap: 10px;
   }
-  .enki-qc-bar-hint {
+  .enki-qc.open > .enki-qc-bar {
     display: none;
   }
+  .enki-qc-bar:hover { background: var(--ink); }
+  .enki-qc.open .enki-qc-bar { border-bottom: 0; border-radius: 22px 22px 0 0; }
+  .enki-qc-bar-bolt { background: transparent; color: currentColor; width: 16px; height: 16px; }
+  .enki-qc-bar-label { color: var(--paper); font-family: var(--sans); font-size: 15px; font-weight: 600; }
+  .enki-qc-bar-hint {
+    display: inline;
+    margin-left: auto;
+    color: rgba(250,248,244,0.72);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+  .enki-qc:not(.open) .enki-qc-bar-hint { font-size: 0; }
+  .enki-qc:not(.open) .enki-qc-bar-hint::after { content: 'new image'; font-size: 13px; }
+  .enki-qc-bar-chev { display: none; }
   .enki-qc-panel {
-    max-height: min(72dvh, 620px);
-    padding: 16px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: min(700px, calc(100dvh - 78px));
+    padding: 0;
     overflow: auto;
+    background: var(--paper);
+    border: 0;
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+  }
+  .enki-qc-sheet-handle {
+    display: block;
+    width: 36px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--rule);
+    margin: 10px auto 6px;
+    flex: 0 0 auto;
+  }
+  .enki-qc-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 22px 14px;
+    border-bottom: 1px solid rgba(24,20,18,0.06);
+    flex: 0 0 auto;
+  }
+  .enki-qc-segmented {
+    display: inline-flex;
+    padding: 3px;
+    background: rgba(24,20,18,0.06);
+    border-radius: 999px;
+  }
+  .enki-qc-segmented button {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    font: 500 12px/1 var(--sans);
+  }
+  .enki-qc-segmented button.active {
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .enki-qc-sheet-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+  }
+  .enki-qc-scroll {
+    padding: 14px 22px 0;
+    overflow-y: auto;
+    flex: 1;
   }
   .enki-qc-grid {
     display: block;
@@ -205,6 +309,9 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(24,20,18,0.06);
   }
   .enki-qc-setting {
     display: block;
@@ -215,11 +322,52 @@
   }
   .enki-qc-select {
     width: 100%;
+    height: 31px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 0 10px;
+    background: transparent;
+    font-size: 12px;
   }
   .enki-qc-var {
-    grid-template-columns: 82px 1fr;
+    display: grid;
+    grid-template-columns: 74px 1fr;
     gap: 10px;
-    min-height: 42px;
+    min-height: 43px;
+    padding: 8px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 7px;
+  }
+  .enki-qc-var-types {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 2px;
+  }
+  .enki-qc-var-types button {
+    padding: 6px 4px;
+    border-radius: 5px;
+    border: 1px solid var(--rule);
+    background: transparent;
+    color: var(--ink-3);
+    font: 500 10.5px/1 var(--sans);
+  }
+  .enki-qc-var-types button:first-child {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+  .enki-qc-var-add {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--rule);
+    background: transparent;
+    border-radius: 999px;
+    padding: 4px 9px;
+    font: 500 11px/1 var(--sans);
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0;
   }
   .enki-qc-cost-line {
     align-items: flex-start;
@@ -229,11 +377,46 @@
   .enki-qc-results {
     left: 0;
     right: 0;
-    bottom: 62px;
+    bottom: 0;
     max-height: 78dvh;
     border-left: 0;
     border-right: 0;
     overflow: auto;
+  }
+  .enki-qc-cost {
+    margin-left: -22px;
+    margin-right: -22px;
+    padding: 12px 22px 20px;
+    border-top: 1px solid rgba(24,20,18,0.06);
+    background: var(--paper);
+    position: sticky;
+    bottom: 0;
+  }
+  .enki-qc-cost-line {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(24,20,18,0.04);
+    margin-bottom: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .enki-qc-generate {
+    border-radius: 999px !important;
+    padding: 15px 22px !important;
+    background: var(--ink) !important;
+  }
+  .enki-qc-textarea {
+    min-height: 80px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: rgba(24,20,18,0.03);
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+  .enki-qc-section-label {
+    margin-bottom: 8px;
+    letter-spacing: 1.4px;
+    font-weight: 700;
   }
   .enki-qc-results-head {
     padding: 14px 16px;

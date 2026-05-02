@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Filters from "@/components/Filters";
 import Card from "@/components/Card";
@@ -24,6 +25,11 @@ export default function VideosPage() {
         <h1 className="enki-page-h1 serif"><em>Motion</em>, time &amp;<br/>the moving frame.</h1>
         <div className="enki-page-lede">Cinematic clips, looping b-roll, slow-motion vignettes — each prompt comes with four director-approved reference renders.</div>
       </div>
+      <div className="enki-mobile-tabs">
+        <Link href="/">All <span>{PROMPTS.length}</span></Link>
+        <Link href="/images">Images <span>{PROMPTS.filter(p => !p.isVideo).length}</span></Link>
+        <Link href="/videos" className="active">Videos <span>{list.length}</span></Link>
+      </div>
       <Filters active={[]} toggle={() => {}} />
       <div className="enki-masonry" style={{ columnCount: 4 }}>
         {list.map(p => (
@@ -41,4 +47,3 @@ export default function VideosPage() {
     </>
   );
 }
-

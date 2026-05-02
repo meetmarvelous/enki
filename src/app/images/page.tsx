@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Filters from "@/components/Filters";
 import Card from "@/components/Card";
@@ -24,6 +25,11 @@ export default function ImagesPage() {
         <h1 className="enki-page-h1 serif"><em>Stills</em>, frames &amp;<br/>fixed compositions.</h1>
         <div className="enki-page-lede">Hand-tuned image prompts from artists who release four reference renders before they ship.</div>
       </div>
+      <div className="enki-mobile-tabs">
+        <Link href="/">All <span>{PROMPTS.length}</span></Link>
+        <Link href="/images" className="active">Images <span>{list.length}</span></Link>
+        <Link href="/videos">Videos <span>{PROMPTS.filter(p => p.isVideo).length}</span></Link>
+      </div>
       <Filters active={[]} toggle={() => {}} />
       <div className="enki-masonry" style={{ columnCount: 4 }}>
         {list.map(p => (
@@ -41,4 +47,3 @@ export default function ImagesPage() {
     </>
   );
 }
-

@@ -36,6 +36,13 @@ export default function Card({ p, onOpen, faved, toggleFav }: CardProps) {
           </div>
         </div>
       </div>
+      <div className="enki-card-mobile-meta">
+        <div className="enki-card-mobile-title serif">{p.title}</div>
+        <div className="enki-card-mobile-row">
+          <span>{p.artist.name}</span>
+          <span className="mono">${p.price.toFixed(2)}</span>
+        </div>
+      </div>
     </div>
   );
 }

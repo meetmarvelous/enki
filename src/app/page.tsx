@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Filters from "@/components/Filters";
 import Card from "@/components/Card";
@@ -21,6 +22,7 @@ export default function HomePage() {
     if (tags.length) list = list.filter(p => tags.every(t => p.tags.includes(t)));
     return list;
   }, [tags]);
+  const feed = useMemo(() => [...myGen, ...filtered], [myGen, filtered]);
 
   const toggleTag = (t: string) => {
     setTags(s => s.includes(t) ? s.filter(x => x !== t) : [...s, t]);
@@ -50,14 +52,19 @@ export default function HomePage() {
       <Header active="home" />
       <div className="enki-page-title" style={{ paddingBottom: 18 }}>
         <div className="enki-page-eyebrow">
-          Curated this week · {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+          Curated · this week
         </div>
         <h1 className="enki-page-h1 serif">
           <em>Discover</em> prompts<br />worth keeping.
         </h1>
       </div>
+      <div className="enki-mobile-tabs">
+        <Link href="/" className="active">All <span>{PROMPTS.length}</span></Link>
+        <Link href="/images">Images <span>{PROMPTS.filter(p => !p.isVideo).length}</span></Link>
+        <Link href="/videos">Videos <span>{PROMPTS.filter(p => p.isVideo).length}</span></Link>
+      </div>
       <Filters active={tags} toggle={toggleTag} />
-      <div className="enki-masonry" style={{ columnCount: 4 }}>
+      <div className="enki-masonry enki-desktop-feed" style={{ columnCount: 4 }}>
         {myGen.map(p => (
           <Card key={p.id} p={p} onOpen={setOpen} faved={!!favs[p.id]} toggleFav={toggleFav} />
         ))}
@@ -70,6 +77,18 @@ export default function HomePage() {
             toggleFav={toggleFav}
           />
         ))}
+      </div>
+      <div className="enki-mobile-feed">
+        <div>
+          {feed.filter((_, i) => i % 2 === 0).map(p => (
+            <Card key={p.id} p={p} onOpen={setOpen} faved={!!favs[p.id]} toggleFav={toggleFav} />
+          ))}
+        </div>
+        <div className="enki-mobile-feed-offset">
+          {feed.filter((_, i) => i % 2 === 1).map(p => (
+            <Card key={p.id} p={p} onOpen={setOpen} faved={!!favs[p.id]} toggleFav={toggleFav} />
+          ))}
+        </div>
       </div>
       <QuickCreate onAddToGallery={addToGallery} />
       {open && (
