@@ -2,7 +2,7 @@
 import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
-import { NETWORKS, makeArtwork, parseTokens } from "@/lib/data";
+import { makeArtwork, parseTokens } from "@/lib/data";
 import { Zap, Copy } from "lucide-react";
 
 const REL_MODELS = [
@@ -28,8 +28,6 @@ export default function ReleasePage() {
   const [ratioOptional, setRatioOptional] = useState(true);
   const [displayMode, setDisplayMode] = useState('free');
   const [artistPrice, setArtistPrice] = useState(0.10);
-  const [refAllow, setRefAllow] = useState(true);
-  const [refMax, setRefMax] = useState(2);
   const [wallet, setWallet] = useState<string | null>(null);
   const [versions, setVersions] = useState([true, true, true, false]);
   const promptRef = useRef<HTMLTextAreaElement>(null);
@@ -138,7 +136,7 @@ export default function ReleasePage() {
           </div>
           <div style={{ position: 'relative', width: '100%' }}>
             <div className="serif" aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', color: 'transparent', border: '1px solid transparent', background: 'var(--paper)', overflow: 'hidden', zIndex: 1, padding: '16px 18px', fontSize: 18, lineHeight: 1.5, whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-              {promptBody.replace(/\[(\w+)\]/g, (match, name) => match).split(/(\[\w+\])/).map((part, i) => {
+              {promptBody.split(/(\[\w+\])/).map((part, i) => {
                 const m = part.match(/^\[(\w+)\]$/);
                 if (m) return <span key={i} style={{ background: activeVar === m[1] ? 'var(--ember)' : 'var(--ember-soft)', color: activeVar === m[1] ? 'var(--paper)' : 'var(--ember)' }}>{part}</span>;
                 return <span key={i}>{part}</span>;

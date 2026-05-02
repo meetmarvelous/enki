@@ -1,18 +1,33 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
-import { Bolt, ChevronDown, Plus, Bookmark, X, Zap } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ChevronDown, Plus, Bookmark, X, Zap } from "lucide-react";
 import { QC_MODELS, QC_RATIOS, QC_RESOLUTIONS, parseTokens, makeArtwork } from "@/lib/data";
+import type { ArtworkData } from "@/lib/data";
+
+export interface QuickCreateGalleryItem {
+  art: ArtworkData;
+  label: string;
+}
+
+interface QuickCreateResultSet {
+  prompt: string;
+  model: string;
+  ratio: string;
+  res: string;
+  imgs: QuickCreateGalleryItem[];
+  cost: string;
+}
 
 interface QuickCreateProps {
   defaultPrompt?: string;
   startOpen?: boolean;
-  onAddToGallery?: (item: any) => void;
+  onAddToGallery?: (item: QuickCreateGalleryItem) => void;
 }
 
 function QuickCreateResults({ results, onClose, onAddToGallery }: { 
-  results: any; 
+  results: QuickCreateResultSet; 
   onClose: () => void; 
-  onAddToGallery?: (img: any) => void;
+  onAddToGallery?: (img: QuickCreateGalleryItem) => void;
 }) {
   return (
     <div className="enki-qc-results">
@@ -24,8 +39,9 @@ function QuickCreateResults({ results, onClose, onAddToGallery }: {
         <button className="enki-icon-btn" onClick={onClose} title="Close"><X size={14} /></button>
       </div>
       <div className="enki-qc-results-grid">
-        {results.imgs.map((g: any, i: number) => (
+        {results.imgs.map((g, i) => (
           <div key={i} className="enki-qc-result">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={g.art.url} alt="" />
             <div className="enki-qc-result-actions">
               <button className="enki-btn enki-btn-secondary" style={{ flex: 1 }} onClick={() => onAddToGallery?.(g)}>
@@ -53,18 +69,10 @@ export default function QuickCreate({ defaultPrompt = '', startOpen = false, onA
   const [res, setRes] = useState('2K');
   const [count, setCount] = useState(2);
   const [generating, setGenerating] = useState(false);
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<QuickCreateResultSet | null>(null);
   const [resultsOpen, setResultsOpen] = useState(false);
 
   const tokens = useMemo(() => parseTokens(prompt), [prompt]);
-
-  useEffect(() => {
-    setVars(s => {
-      const next: Record<string, string> = {};
-      for (const t of tokens) next[t] = s[t] ?? '';
-      return next;
-    });
-  }, [tokens]);
 
   const m = QC_MODELS.find(x => x.id === model) || QC_MODELS[0];
   const total = (m.cost * count).toFixed(2);
@@ -206,7 +214,9 @@ export default function QuickCreate({ defaultPrompt = '', startOpen = false, onA
         <QuickCreateResults
           results={results}
           onClose={() => setResultsOpen(false)}
-          onAddToGallery={(img) => { onAddToGallery && onAddToGallery(img); }}
+          onAddToGallery={(img) => {
+            if (onAddToGallery) onAddToGallery(img);
+          }}
         />
       )}
     </>

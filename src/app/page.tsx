@@ -5,6 +5,7 @@ import Filters from "@/components/Filters";
 import Card from "@/components/Card";
 import DetailPanel from "@/components/DetailPanel";
 import QuickCreate from "@/components/QuickCreate";
+import type { QuickCreateGalleryItem } from "@/components/QuickCreate";
 import { PROMPTS } from "@/lib/data";
 import type { Prompt } from "@/lib/data";
 
@@ -12,8 +13,8 @@ export default function HomePage() {
   const [tags, setTags] = useState<string[]>([]);
   const [favs, setFavs] = useState<Record<string, boolean>>({ p_2: true, p_5: true });
   const [open, setOpen] = useState<Prompt | null>(null);
-  const [activeNet, setActiveNet] = useState("Base");
-  const [myGen, setMyGen] = useState<any[]>([]);
+  const [activeNet] = useState("Base");
+  const [myGen, setMyGen] = useState<Prompt[]>([]);
 
   const filtered = useMemo(() => {
     let list = PROMPTS;
@@ -29,15 +30,18 @@ export default function HomePage() {
     setFavs(s => ({ ...s, [id]: !s[id] }));
   };
 
-  const addToGallery = (g: any) => {
+  const addToGallery = (g: QuickCreateGalleryItem) => {
     setMyGen(s => [{
       id: 'mygen_' + Date.now() + Math.random(),
       title: 'Your generation',
       art: g.art, isVideo: false,
-      artist: { name: 'You', handle: 'sam.mehta', avatar: 'SM' },
+      artist: { name: 'You', handle: 'sam.mehta', avatar: 'SM', bio: 'QuickCreate studio output.' },
       tags: ['mine'], price: 0, downloads: 1,
       variables: [], promptTemplate: '', versions: [g.art, g.art, g.art, g.art],
       model: 'Nano Banana Pro', publishedAt: 'just now',
+      rating: 5,
+      visibility: 'full',
+      description: 'A quick generation created from the Discover dock.',
     }, ...s]);
   };
 
@@ -80,4 +84,3 @@ export default function HomePage() {
     </div>
   );
 }
-

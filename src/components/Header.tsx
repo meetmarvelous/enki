@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, Plus, Bell, ChevronDown, Check } from "lucide-react";
+import { Search, Plus, Bell, Check } from "lucide-react";
 import { NETWORKS } from "@/lib/data";
 
 interface HeaderProps {
@@ -40,10 +40,10 @@ function ProfileDropdown({ networks, activeNet, setActiveNet, onClose }: {
       <div className="enki-dropdown-section">
         <Link href="/profile" className="enki-dropdown-link" onClick={onClose}>My profile</Link>
         <Link href="/favorites" className="enki-dropdown-link" onClick={onClose}>Favorites</Link>
-        <div className="enki-dropdown-link">Released prompts</div>
-        <div className="enki-dropdown-link">Earnings</div>
-        <div className="enki-dropdown-link">Settings</div>
-        <div className="enki-dropdown-link" style={{ color: 'var(--ink-3)', marginTop: 4 }}>Sign out</div>
+        <Link href="/released" className="enki-dropdown-link" onClick={onClose}>Released prompts</Link>
+        <Link href="/earnings" className="enki-dropdown-link" onClick={onClose}>Earnings</Link>
+        <Link href="/settings" className="enki-dropdown-link" onClick={onClose}>Settings</Link>
+        <Link href="/" className="enki-dropdown-link" onClick={onClose} style={{ color: 'var(--ink-3)', marginTop: 4 }}>Sign out</Link>
       </div>
     </div>
   );
@@ -101,4 +101,3 @@ export default function Header({ active = "home" }: HeaderProps) {
     </header>
   );
 }
-

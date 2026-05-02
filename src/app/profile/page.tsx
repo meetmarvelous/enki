@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import Card from "@/components/Card";
 import DetailPanel from "@/components/DetailPanel";
-import { ARTISTS, PROMPTS, NETWORKS } from "@/lib/data";
+import { ARTISTS, PROMPTS } from "@/lib/data";
 import type { Prompt } from "@/lib/data";
 import { ChevronDown } from "lucide-react";
 
@@ -194,4 +194,3 @@ export default function ProfilePage() {
     </>
   );
 }
-

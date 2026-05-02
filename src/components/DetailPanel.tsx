@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
-import { X, Heart, Bookmark, Copy, ChevronDown, Check, Maximize } from "lucide-react";
+import { X, Heart, Bookmark, Copy, Maximize } from "lucide-react";
 import type { Prompt } from "@/lib/data";
 import { makeArtwork } from "@/lib/data";
 
@@ -18,7 +18,7 @@ export default function DetailPanel({ p, onClose, faved, toggleFav, activeNetwor
   const [heroIdx, setHeroIdx] = useState(0);
   const [ratio, setRatio] = useState('4:5');
   const [resolution, setResolution] = useState('2K');
-  const [generator, setGenerator] = useState('Nano Banana Pro');
+  const [generator] = useState('Nano Banana Pro');
 
   const RATIOS = ['3:4', '4:5', '1:1', '2:3', '4:3', '16:9'];
   const RESOLUTIONS = ['1K', '2K', '4K'];
